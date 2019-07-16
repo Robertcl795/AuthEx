@@ -1,17 +1,15 @@
-import { createLogger, format, transports } from 'winston';
-import { TransformableInfo, FormatWrap } from 'logform';
-import { Config } from '../config';
-
-const config = new Config();
+import { createLogger, format, transports } from 'winston'
+import { TransformableInfo, FormatWrap } from 'logform'
+import config from '../config'
 
 const ignorePrivate = format((info, opts) => {
-    if (info.private) { return false; }
-    return info;
-});
+    if (info.private) { return false }
+    return info
+})
 
 const debugEnabled: TransformableInfo | FormatWrap = format(info => {
-    if(config.app_env !== 'development') return false;
-    return info;
+    if (config.app_env !== 'development') return false
+    return info
 })
 
 const options = {
@@ -28,7 +26,7 @@ const options = {
         handleExceptions: true,
         json: false,
     },
-};
+}
 
 const logger = createLogger({
     format: format.combine(
@@ -38,19 +36,19 @@ const logger = createLogger({
         ignorePrivate(),
         debugEnabled(),
         format.printf(info => {
-            const {timestamp, level, message, ...args} = info;
-            const ts = timestamp.slice(0,19).replace('T', ' ');
-            return `${ts} [${level}]: ${message} ${Object.keys(args).length ? 
-                JSON.stringify(args, null, 2) : ''}`;
+            const { timestamp, level, message, ...args } = info
+            const ts = timestamp.slice(0, 19).replace('T', ' ')
+            return `${ts} [${level}]: ${message} ${Object.keys(args).length ?
+                JSON.stringify(args, null, 2) : ''}`
         })
     ),
     transports: [
         new transports.Console(options.console),
         // new transports.File(options.file)
     ]
-});
+})
 
-export class Logger {
+class Logger {
     info(message: string, p: boolean = false) {
         logger.info(message)
     }
@@ -58,18 +56,19 @@ export class Logger {
         logger.info(message)
     }
     error(message: string) {
-        logger.error(message);
+        logger.error(message)
     }
     warn(message: string) {
-        logger.info(message);
+        logger.info(message)
     }
     banner() {
-        logger.info('_     ___           █████╗ ██████╗  ██████╗████████╗ ██████╗ ███████╗');
-        logger.info("#_~`--'__ `===-,    ██╔══██╗██╔══██╗██╔════╝╚══██╔══╝██╔═══██╗██╔════╝");
-        logger.info('`.`.     `#.,//     ███████║██████╔╝██║        ██║   ██║   ██║███████╗');
-        logger.info(',_\\_\\     ## #\\     ██╔══██║██╔══██╗██║        ██║   ██║   ██║╚════██║');
-        logger.info('`__.__    `####\\    ██║  ██║██║  ██║╚██████╗   ██║   ╚██████╔╝███████║');
-        logger.info("     ~~\\ ,###'~     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝    ╚═════╝ ╚══════╝");
-        logger.info("        \\##'");
+        logger.info('_     ___           █████╗ ██████╗  ██████╗████████╗ ██████╗ ███████╗')
+        logger.info("#_~`--'__ `===-,    ██╔══██╗██╔══██╗██╔════╝╚══██╔══╝██╔═══██╗██╔════╝")
+        logger.info('`.`.     `#.,//     ███████║██████╔╝██║        ██║   ██║   ██║███████╗')
+        logger.info(',_\\_\\     ## #\\     ██╔══██║██╔══██╗██║        ██║   ██║   ██║╚════██║')
+        logger.info('`__.__    `####\\    ██║  ██║██║  ██║╚██████╗   ██║   ╚██████╔╝███████║')
+        logger.info("     ~~\\ ,###'~     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝    ╚═════╝ ╚══════╝")
+        logger.info("        \\##'")
     }
 }
+export default new Logger()

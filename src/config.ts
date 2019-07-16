@@ -1,9 +1,10 @@
-export class Config {
-    readonly port: string = process.env.PORT || '3000'
-    readonly api_url: string = process.env.API_URL || `/api/v1`
-    readonly db_acc: string = process.env.MONGO_USER
-    readonly db_pwd: string = process.env.MONGO_PASS
-    readonly log_dir: string = process.env.LOG_DIR || './logs'
-    readonly app_env: string = process.env.NODE_ENV || 'development'
-    readonly token: string = process.env.KEY || ''
-}
+export default Object.freeze({
+    port: process.env.PORT || '3000',
+    api_url: process.env.API_URL || `/api/v1`,
+    db_acc: process.env.MONGO_USER,
+    db_pwd: process.env.MONGO_PASS,
+    db_name: process.env.MONGO_DB,
+    log_dir: process.env.LOG_DIR || './logs',
+    app_env: process.env.NODE_ENV || 'development',
+    token: process.env.KEY || ''
+})
