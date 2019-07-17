@@ -6,5 +6,7 @@ export default Object.freeze({
     db_name: process.env.MONGO_DB,
     log_dir: process.env.LOG_DIR || './logs',
     app_env: process.env.NODE_ENV || 'development',
-    token: process.env.KEY || ''
+    token: process.env.KEY || 'XYIsTheBestAlbum',
+    clientID: process.env.GCLIENT_ID,
+    clientSecret: process.env.GCLIENT_SECRET
 })
