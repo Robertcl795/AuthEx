@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:server": "cross-env NODE_ENV=development tsnd --project tsconfig.json --respawn --transpileOnly src",
-    "build:server": "cross-env NODE_ENV=production tsc -p src --outDir dist",
-    "test:server": "mocha --timeout 5000 --require ts-node/register src/**/*.spec.ts",
-    "test:coverage": "cross-env NODE_ENV=testing nyc --reporter=lcov mocha --timeout 5000 src/**/*.spec.ts"
+    "dev:client": "npm run start --prefix client",
+    "dev:server": "cross-env NODE_ENV=development tsnd --project tsconfig.json --respawn --transpileOnly server",
+    "build:server": "cross-env NODE_ENV=production tsc -p server --outDir dist",
+    "build:client": "npm run build --prefix client",
+    "test:server": "mocha --timeout 5000 --require ts-node/register server/**/*.spec.ts",
+    "test:coverage": "cross-env NODE_ENV=testing nyc --reporter=lcov mocha --timeout 5000 server/**/*.spec.ts"
   },
   "keywords": [],
   "author": "",
@@ -15,11 +17,13 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "concurrently": "^4.1.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.4",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
+    "passport-facebook-token": "^3.3.0",
     "passport-google-plus-token": "^2.1.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -36,6 +40,7 @@
     "@types/morgan": "^1.7.35",
     "@types/node": "^12.6.3",
     "@types/passport": "^1.0.0",
+    "@types/passport-facebook-token": "^0.4.33",
     "@types/passport-jwt": "^3.0.1",
     "@types/passport-local": "^1.0.33",
     "chai": "^4.2.0",

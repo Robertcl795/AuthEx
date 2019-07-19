@@ -1,0 +1,16 @@
+@import './styles/index.scss';
+
+.App {
+  text-align: center;
+  > header.navbar {
+    height: $header-height;
+  }
+  > footer {
+    height: $footer-height;
+  }
+  > main {
+    min-height: calc(100vh - #{$header-height} - #{$footer-height});
+    height: 100%;
+  }
+}
+

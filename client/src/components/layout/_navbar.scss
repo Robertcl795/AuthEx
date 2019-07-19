@@ -1,0 +1,16 @@
+header.navbar {
+    background: $ui-01;
+    display: grid;
+    grid-template-columns: 1fr [logo] 5fr [links];
+    align-items: center;
+    a {
+        color: $text-01;
+        text-decoration: none;
+        font-weight: 400;
+    }
+    nav.navbar__collapse {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(8rem, 5rem));
+        justify-content: end;
+    }
+}
